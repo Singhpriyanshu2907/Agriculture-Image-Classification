@@ -59,7 +59,7 @@ class ConfigurationManager:
         training = self.config.training
         prepare_base_model = self.config.prepare_base_model
         params = self.params
-        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "Chest-CT-Scan-data")
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir)
         create_directories([
             Path(training.root_dir)
         ])
@@ -72,7 +72,8 @@ class ConfigurationManager:
             params_epochs=params.EPOCHS,
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
-            params_image_size=params.IMAGE_SIZE
+            params_image_size=params.IMAGE_SIZE,
+            params_learning_rate=params.LEARNING_RATE
         )
 
         return training_config
