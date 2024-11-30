@@ -1,0 +1,113 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/AgriClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 65ec661be11b68fb97eb60613228fab9
+      size: 591
+    - path: src/AgriClassifier/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: c67dba9c0a7256e60815461d8d61415e
+      size: 915
+    outs:
+    - path: artifacts/data_ingestion/Data
+      hash: md5
+      md5: f8143b5888b276e01ae671ce0857046b.dir
+      size: 79526521
+      nfiles: 805
+  prepare_base_model:
+    cmd: python src/AgriClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 65ec661be11b68fb97eb60613228fab9
+      size: 591
+    - path: src/AgriClassifier/pipeline/stage_02_prepare_base_model.py
+      hash: md5
+      md5: 074d279c1f10802379bce017d85c809c
+      size: 1000
+    params:
+      params.yaml:
+        CLASSES: 30
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.001
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 19300d5edbf2ff2a39d592dbc54ac2c1.dir
+      size: 26650816
+      nfiles: 2
+  training:
+    cmd: python src/AgriClassifier/pipeline/stage_03_model_trainer.py
+    deps:
+    - path: artifacts/data_ingestion/Data
+      hash: md5
+      md5: f8143b5888b276e01ae671ce0857046b.dir
+      size: 79526521
+      nfiles: 805
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 19300d5edbf2ff2a39d592dbc54ac2c1.dir
+      size: 26650816
+      nfiles: 2
+    - path: config/config.yaml
+      hash: md5
+      md5: 65ec661be11b68fb97eb60613228fab9
+      size: 591
+    - path: src/AgriClassifier/pipeline/stage_03_model_trainer.py
+      hash: md5
+      md5: faa8730190502dcad32a03ba1328ef08
+      size: 929
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 32
+        EPOCHS: 25
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: artifacts/training/model.h5
+      hash: md5
+      md5: 2a004560c152f42b0c4245a91a28561f
+      size: 32147832
+  evaluation:
+    cmd: python src/AgriClassifier/pipeline/stage_04_model_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/Data
+      hash: md5
+      md5: f8143b5888b276e01ae671ce0857046b.dir
+      size: 79526521
+      nfiles: 805
+    - path: artifacts/training/model.h5
+      hash: md5
+      md5: 2a004560c152f42b0c4245a91a28561f
+      size: 32147832
+    - path: config/config.yaml
+      hash: md5
+      md5: 65ec661be11b68fb97eb60613228fab9
+      size: 591
+    - path: src/AgriClassifier/pipeline/stage_04_model_evaluation.py
+      hash: md5
+      md5: 5734edc45f79e049c06faee565ac9263
+      size: 940
+    params:
+      params.yaml:
+        BATCH_SIZE: 32
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: 8790f1349c07b393016b9f3657d19578
+      size: 70
