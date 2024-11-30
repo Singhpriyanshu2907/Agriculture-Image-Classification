@@ -1,6 +1,6 @@
 import os
 from AgriClassifier.constants import *
-from AgriClassifier.utils.common import read_yaml, create_directories
+from AgriClassifier.utils.common import read_yaml, create_directories, save_json
 from AgriClassifier.entity.config_entity import (DataIngestionConfig,
                                                 PrepareBaseModelConfig,
                                                 TrainingConfig,
@@ -83,11 +83,12 @@ class ConfigurationManager:
 
     def get_evaluation_config(self) -> EvaluationConfig:
         eval_config = EvaluationConfig(
-            path_of_model="artifacts/training/",
-            training_data="artifacts/data_ingestion/",
-            mlflow_uri="https://dagshub.com/",
+            path_of_model="artifacts/training/model.h5",
+            training_data="artifacts/data_ingestion/Data",
+            mlflow_uri="https://dagshub.com/Singhpriyanshu2907/Agriculture-Image-Classification.mlflow",
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
-            params_batch_size=self.params.BATCH_SIZE
+            params_batch_size=self.params.BATCH_SIZE,
+            params_learning_rate=self.params.LEARNING_RATE
         )
         return eval_config
