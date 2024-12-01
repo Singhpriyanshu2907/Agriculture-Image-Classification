@@ -32,6 +32,7 @@ def home():
 @cross_origin()
 def trainRoute():
     #os.system("python main.py") if you want to run the complete pipeline
+    #os.system("python main.py") if you want to run the complete pipeline
     os.system("dvc repro")
     return "Training done successfully!"
 
