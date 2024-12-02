@@ -4,29 +4,50 @@ This project classifies agricultural images into 30 categories using MobileNetV2
 
 #Project Structure
 
-├── .dvc/                     # DVC configuration files
-├── .github/workflows/        # CI/CD GitHub workflows
-├── config/                   # Configuration files for pipeline and parameters
-├── model/                    # Directory to store trained models
-├── research/                 # Research and experimental notebooks
-├── src/AgriClassifier/       # Source code for the application
-├── templates/                # HTML templates (for web app, if any)
-├── .dvcignore                # DVC ignore file
-├── .gitignore                # Git ignore file
-├── Dockerfile                # Dockerfile for containerization
-├── LICENSE                   # License for the project
-├── README.md                 # Project documentation
-├── app.py                    # Flask/Django-based app entry point
-├── dvc.lock                  # DVC lock file
-├── dvc.yaml                  # DVC pipeline configuration
-├── main.py                   # Entry point for pipeline stages
-├── params.yaml               # Parameter configuration for model training
-├── requirements.txt          # Dependencies list
-├── scores.json               # Saved evaluation scores
-├── setup.py                  # Python package setup
-├── template.py               # Template Python script
+.dvc/                     # DVC configuration files
 
-#Steps to Run the Project
+.github/workflows/        # CI/CD GitHub workflows
+
+config/                   # Configuration files for pipeline and parameters
+
+model/                    # Directory to store trained models
+
+research/                 # Research and experimental notebooks
+
+src/AgriClassifier/       # Source code for the application
+
+templates/                # HTML templates (for web app, if any)
+
+.dvcignore                # DVC ignore file
+
+.gitignore                # Git ignore file
+
+Dockerfile                # Dockerfile for containerization
+
+LICENSE                   # License for the project
+
+README.md                 # Project documentation
+
+app.py                    # Flask/Django-based app entry point
+
+dvc.lock                  # DVC lock file
+
+dvc.yaml                  # DVC pipeline configuration
+
+main.py                   # Entry point for pipeline stages
+
+params.yaml               # Parameter configuration for model training
+
+requirements.txt          # Dependencies list
+
+scores.json               # Saved evaluation scores
+
+setup.py                  # Python package setup
+
+template.py               # Template Python script
+
+
+# Steps to Run the Project
 
 # 1. Setup the Environment
 Install Python 3.10.
@@ -120,9 +141,13 @@ setting>actions>runner>new self hosted runner> choose os> then run command one b
 
 # Setup github secrets:
 AWS_ACCESS_KEY_ID=
+
 AWS_SECRET_ACCESS_KEY=
+
 AWS_REGION =
+
 AWS_ECR_LOGIN_URI =
+
 ECR_REPOSITORY_NAME =  
 
 # Contributing
